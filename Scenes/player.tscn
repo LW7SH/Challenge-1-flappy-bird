@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy7dbau5w8n1t"]
+
+[ext_resource type="Script" uid="uid://idaoih43ovy2" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://trcwmcin6koa" path="res://Assets/Player/StyleBird1/Bird1-6.png" id="1_v0iea"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
+radius = 6.32456
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("respawner_timer")]
+z_index = 1
+collision_mask = 2
+script = ExtResource("1_cvnsp")
+gravity = 10.0
+respawner_timer = NodePath("RespawnTime")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+scale = Vector2(5, 5)
+texture = ExtResource("1_v0iea")
+hframes = 4
+
+[node name="PlayerHitBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_cvnsp")
+
+[node name="RespawnTime" type="Timer" parent="."]
+
+[connection signal="timeout" from="RespawnTime" to="." method="_on_respawn_time_timeout"]
